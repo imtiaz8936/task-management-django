@@ -58,6 +58,5 @@ def create_task(request):
     return render(request, "task_form.html", context)
 
 def view_task(request):
-    #retrieve all data from Task Model
-    tasks = Task.objects.all()
+    tasks = Task.objects.filter(status="PENDING")
     return render(request, "show_task.html", {"tasks": tasks})
