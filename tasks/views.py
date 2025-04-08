@@ -3,11 +3,14 @@ from django.http import HttpResponse
 
 # Create your views here.
 
+def dashboard(request):
+    return render(request, "dashboard.html")
+
 def manager_dashboard(request):
-    return render(request, "dashboard/manager-dashboard.html")
+    return render(request, "manager-dashboard.html")
 
 def user_dashboard(request):
-    return render(request, "dashboard/user-dashboard.html")
+    return render(request, "user-dashboard.html")
 
 def test(request):
     names = ["Imtiaz", "Mawa", "Imran", "Ridwan"]
