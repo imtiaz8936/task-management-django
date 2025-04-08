@@ -3,14 +3,14 @@ task_env/
 __pycache__/
 db.sqlite3
 node_modules/
-package.json
-package-lock.json
-postcss.config.js
-tailwind.config.js
-task_management/
-tasks/
-users/
-static/
+# package.json
+# package-lock.json
+# postcss.config.js
+# tailwind.config.js
+# task_management/
+# tasks/
+# users/
+# static/
 
 # static/css/output.css/
 # static/css/style.css/
