@@ -1,38 +1,29 @@
 from django import forms
-from tasks.models import Task
+from django.forms import ModelForm
+from tasks.models import Event, Participant, Category
 
-# Django Form
-class TaskForm(forms.Form):
-    title = forms.CharField(max_length=250, label="Task Title")
-    description = forms.CharField(widget=forms.Textarea, label="Task Description")
-    due_date = forms.DateField(widget=forms.SelectDateWidget, label="Due Date")
-    assigned_to = forms.MultipleChoiceField(widget=forms.CheckboxSelectMultiple, choices = [], label="Assigned To")
-    def __init__(self, *args, **kwargs):
-        employees = kwargs.pop("employees", [])
-        super().__init__(*args, **kwargs)
-        self.fields['assigned_to'].choices = [(emp.id, emp.name) for emp in employees]
-
-# Django Model Form
-class TaskModelForm(forms.ModelForm):
+class EventForm(forms.ModelForm):
     class Meta:
-        model = Task
-        fields = ['title', 'description', 'due_date', 'assigned_to']
+        model = Event
+        fields = '__all__'
         widgets = {
-            'title': forms.TextInput(attrs={
-                'class': "border border-gray-700 p-2 w-full rounded-md shadow-lg focus:border-sky-500 focus:outline focus:outline-sky-500",
-                'placeholder': "Enter task title"
-            }),
-
-            'description': forms.Textarea(attrs={
-                'class': "border border-gray-700 p-2 w-full rounded-md shadow-lg focus:border-rose-500 focus:ring-rose-500",
-                'placeholder': "Describe the task"
-            }),
-
-            'due_date': forms.SelectDateWidget(attrs={
-                'class': "border border-gray-700 rounded-md shadow-lg focus:border-rose-500 focus:ring-rose-500",
-            }),
-
-            'assigned_to': forms.CheckboxSelectMultiple(attrs={
-                'class': "border border-gray-700 p-2 w-full rounded-md shadow-lg focus:border-rose-500 focus:ring-rose-500",
-            })
+            'date': forms.DateInput(attrs={'type': 'date'}),
+            'time': forms.TimeInput(attrs={'type': 'time'}),
         }
+
+class ParticipantForm(forms.ModelForm):
+    events = forms.ModelMultipleChoiceField(
+        queryset=Event.objects.all(),
+        widget=forms.CheckboxSelectMultiple,
+        required=False,
+        label="Select Events for Participant"
+    )
+
+    class Meta:
+        model = Participant
+        fields = ['name', 'email', 'events']
+
+class CategoryForm(forms.ModelForm):
+    class Meta:
+        model = Category
+        fields = '__all__'

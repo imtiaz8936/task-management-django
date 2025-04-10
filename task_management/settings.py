@@ -25,7 +25,8 @@ SECRET_KEY = 'django-insecure-x4646@&s4^*n)9_apj=+%8c9pp1z6!^bp(9m$&h&@dnpcbam$4
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
+CSRF_TRUSTED_ORIGINS = ['https://*.onrender.com', 'http://127.0.0.1:8000']
 
 
 # Application definition
@@ -97,7 +98,7 @@ WSGI_APPLICATION = 'task_management.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'task_management',
+        'NAME': 'event_management_db',
         'USER': 'postgres',
         'PASSWORD': 'password',
         'HOST': 'localhost',
